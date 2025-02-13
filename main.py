@@ -15,27 +15,30 @@ def load_data():
 
 # Function to format currency
 def format_currency(value):
-    return f"{value:,}".replace(",", ".")  # Convert to thousand separator using dot
+    if isinstance(value, int):
+        return f"{value:,}".replace(",", ".")  # Định dạng số với dấu chấm ngăn cách
+    return value  # Giữ nguyên nếu là chuỗi như "Liên hệ"
 
 # Function to generate coin pricing table for iOS
 def generate_coin_pricing_ios():
     data = {
         "Gói Coin": [130, 300, 550, 750, 1040, 2130, 3250, 5700, 12800],
-        "Giá bán (VND)": [36500, 81500, 142500, 187500, 248500, 478500, 708500, 1135000, 2350000]
+        "Giá bán (VND)": [36000, 80000, 142000, 185000, 245000, 475000, 705000, 1135000, "Liên hệ"]
     }
     df = pd.DataFrame(data)
-    df["Giá bán (VND)"] = df["Giá bán (VND)"].apply(format_currency)  # Apply formatting
+    df["Giá bán (VND)"] = df["Giá bán (VND)"].apply(format_currency)  # Áp dụng định dạng
     return df
 
 # Function to generate coin pricing table for Android
 def generate_coin_pricing_android():
     data = {
-        "Gói Coin": [130, 300, 550, 750, 1040, 2130, 3250, 5700, 12800],
-        "Giá bán (VND)": [36500, 81500, 142500, 187500, 248500, 478500, 708500, 1135000, 2350000]
+        "Gói đặc biệt": ["Pep", "Villa", "Pep+Villa", "Pack 1500"],
+        "Giá bán (VND)": [25000, 70000, 92000, 350000]
     }
     df = pd.DataFrame(data)
-    df["Giá bán (VND)"] = df["Giá bán (VND)"].apply(format_currency)  # Apply formatting
+    df["Giá bán (VND)"] = df["Giá bán (VND)"].apply(format_currency)  # Áp dụng định dạng
     return df
+
 
 @app.route('/')
 def index():
