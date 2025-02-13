@@ -3,3 +3,6 @@ network==0.1
 networkx==3.4.2
 setuptools==75.8.0
 wheel==0.45.1
+gunicorn
+flask
+pandas
